@@ -1,14 +1,17 @@
-package de.joeakeem.spigotmc.plugin.template;
-
-import de.joeakeem.spigotmc.plugin.template.commands.*;
-import de.joeakeem.spigotmc.plugin.template.event.MovementListener;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerToggleDebugEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class TemplatePlugin extends JavaPlugin {
-
+public class DisablePieray extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
-        this.getCommand("enrich").setExecutor(new EnrichCommand());
-        getLogger().info("Added the 'enrich' command.");
+        getServer().getPluginManager().registerEvents(this, this);
+    }
+    
+    @EventHandler
+    public void onPlayerToggleDebug(PlayerToggleDebugEvent event) {
+        event.setCancelled(true);
+        event.getPlayer().sendMessage("Pieray is disabled in this server.");
     }
 }
